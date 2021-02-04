@@ -236,26 +236,14 @@ class LinkedList<E> implements IList<E>
         return x;
 
     }
-    private Element reverse(Element element){
-        Element prev = null;
-        Element currele = element;
-        Element next;
-        for (; currele != null; currele = next){
-            next = currele.next;
-            currele.next = prev;
-            prev = currele;
-        }
-        element = prev;
-        return element;
-    }
-
     public void  reverse(){
-
-         sentinel = reverse(sentinel);
-//        for(int i = size() - 1; i >= 0; i--)
-//            res.add(this.get(i));
+        int old_size = size();
+        for(int i = size() - 1; i >= 0; i--)
+            this.add(this.get(i));
+        for(int i = 0; i < old_size; i++){
+            this.remove(i);
+        }
     }
-
 
     @Override
     public String toString()
