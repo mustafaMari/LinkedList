@@ -10,28 +10,25 @@ class LinkedList<E> implements IList<E>
         {
 
             this.value = e;
+            next = null;
 
         }
 
         E value;
-        Element next = null;
+        Element next;
 
         @Override
         public String toString()
         {
-            StringBuilder s = new StringBuilder();
 
-            s.append(this.next);
-//            StringBuilder s = new StringBuilder();
-//            return s.toString();
-            return s.toString();
+            return String.valueOf(this);
 
         }
 
     }
 
     Element sentinel;
-    E head;
+
 
     private class InnerIterator implements Iterator<E>
     {
@@ -99,9 +96,6 @@ class LinkedList<E> implements IList<E>
     @Override
     public boolean add(E e)
     {
-//        if (size() == 0)
-//            head = e;
-//        else
         add(size(), e);
         return true;
 
@@ -242,28 +236,24 @@ class LinkedList<E> implements IList<E>
         return x;
 
     }
-    public LinkedList<E> reverse(){
-        LinkedList<E> res = new LinkedList<>();
-        Iterator<E> iterator = new InnerIterator();
-        E currele = iterator.next();
-        E nextElement = iterator.next();
-        for (int i = 0; i < size();) {
-            while (iterator.hasNext()) {
-                E temp = currele;
-                currele = nextElement;
-                nextElement = temp;
-                res.add(currele);
-                iterator.next();
-            }
-            currele = iterator.next();
+    private Element reverse(Element element){
+        Element prev = null;
+        Element currele = element;
+        Element next;
+        for (; currele != null; currele = next){
+            next = currele.next;
+            currele.next = prev;
+            prev = currele;
         }
-
-        return res;
+        element = prev;
+        return element;
     }
-    private void swap(E element1, E element2){
-        E temp = element1;
-        element1 = element2;
-        element2 = temp;
+
+    public void  reverse(){
+
+         sentinel = reverse(sentinel);
+//        for(int i = size() - 1; i >= 0; i--)
+//            res.add(this.get(i));
     }
 
 
